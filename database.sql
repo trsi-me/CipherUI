@@ -1,0 +1,23 @@
+-- CipherUI - إنشاء قاعدة البيانات والجداول
+
+CREATE DATABASE IF NOT EXISTS cipherui
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE cipherui;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS encrypted_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    data MEDIUMTEXT NOT NULL,
+    iv VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
